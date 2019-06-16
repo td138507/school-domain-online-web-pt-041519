@@ -1,8 +1,35 @@
 # code here!
 class School
-  school = school.new("Bayside High School")
+  attr_reader :school_name, :roster
 
-  school.roster
+    def initialize(school_name)
+      @school_name = school_name
+      @roster = {}
+    end
 
-  school.add_student("Zach Morris", 9)
-school.roster
+
+    def add_student(student_name, grade)
+      if @roster.key?(grade) == true
+        @roster[grade] << student_name
+      else
+        @roster[grade] = []
+        @roster[grade] << student_name
+      end
+    end
+
+    def grade(level)
+      @roster.select do |grade, student_name|
+        if level == grade
+          return student_name
+        end
+      end
+    end
+
+    def sort
+      results = {}
+      @roster.each do |grade, student_name|
+        results[grade] = student_name.sort
+      end
+      results
+    end
+  end
